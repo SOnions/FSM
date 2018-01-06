@@ -1,0 +1,3 @@
+[submodule "Assets/Scripts/Eventmanager"]
+	path = Assets/Scripts/Eventmanager
+	url = https://github.com/SOnions/EventManager.git
