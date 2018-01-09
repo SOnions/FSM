@@ -8,7 +8,15 @@ using System.Collections.Generic;
 
 namespace FSM
 {
-    public class FiniteStateMachine<T>
+    public interface IFiniteStateMachine
+    {
+        void Update();
+        void ChangeState(State newState);
+        void PushState(State newState);
+        void PopState();
+    }
+
+    public class FiniteStateMachine<T> : IFiniteStateMachine
     {
         //Member Variables
         private T m_Owner;
@@ -32,6 +40,7 @@ namespace FSM
         {
             State oldState = m_Stack.Pop();
             oldState.Leave(m_Owner);
+            newState.fsm = this;
             m_Stack.Push(newState);
             newState.Enter(m_Owner);
         }
@@ -43,8 +52,9 @@ namespace FSM
                 State currentState = m_Stack.Peek();
                 currentState.Pause(m_Owner);
             }
-            newState.Enter(m_Owner);
+            newState.fsm = this;
             m_Stack.Push(newState);
+            newState.Enter(m_Owner);
         }
 
         public void PopState()

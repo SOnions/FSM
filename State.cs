@@ -9,6 +9,9 @@ namespace FSM {
 
     public abstract class State
     {
+        public IFiniteStateMachine fsm { set { m_FSM = value; } }
+        private IFiniteStateMachine m_FSM;
+
         public virtual void Enter(object owner) { }
         public abstract void Execute(object owner);
         public virtual void Leave(object owner) { }
